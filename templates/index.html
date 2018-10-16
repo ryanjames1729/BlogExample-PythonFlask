@@ -1,0 +1,44 @@
+{% extends "base.html" %} {% block title %} Blog {% endblock %} {% block content %} {% import "bootstrap/wtf.html" as wtf %}
+<body style="background-color: #297373">
+  <div class="container">
+    <div class="scroll">
+      {% for item in all_posts %}
+      <div class="flex-center">
+        <div class="card m-5">
+          <!--Card image-->
+          <div class="view overlay hm-white-slight">
+            <div class="mask"></div>
+          </div>
+          <!--Card content-->
+          <div class="card-body">
+            <!--Title-->
+            <h4 class="card-text"><b>{{item.username}}</b>: {{item.content}} </h4>
+            <!--Text-->
+            <p class="card-footer:last-child" style="text-align: right; font-size: 12px">{{item.date}}</p>
+            {% if current_user.is_authenticated %}
+            <button class="btn-floating waves-effect waves-light red" onclick="loadDoc('{{item.content}}')"><i class="material-icons">delete</i></button>
+            {% endif %}
+          </div>
+        </div>
+        <!--/.Card-->
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  function loadDoc(content){
+    let url = "/delete/" + content.trim();
+    $.ajax(url, {
+      data: content,
+      type: 'POST',
+      success: function(){
+        console.log("post deleted...success!");
+        window.location.reload();
+      }
+    })
+  }
+  </script>
+
+
+{% endblock %}

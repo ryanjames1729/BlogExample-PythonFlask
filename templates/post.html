@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block title %} New Post {% endblock %} {% block content %} {% import "bootstrap/wtf.html" as wtf %}
+
+<body style="background-color: #0F0F0F; color: #F0F0F0">
+  <div class="container scroll flex-center">
+    <div class="row">
+      <div class="col m12">
+        <div class="card center-align">
+          <!--Card content-->
+          <div class="card-body" style="background-color: #DFD0D0">
+            <!--Title-->
+            <form  class="form" method="POST" enctype="multipart/form-data" action="/post">
+              {{ form.hidden_tag() }}
+              {{ wtf.form_field(form.username) }}
+              {{ form.content(rows="20") }}
+              <!-- Submit button -->
+              <input class="btn btn-primary" type="submit" value="Upload">
+            </form>
+
+          </div>
+        </div>
+        <!--/.Card-->
+      </div>
+    </div>
+  </div>
+</body>
+
+{% endblock %}
